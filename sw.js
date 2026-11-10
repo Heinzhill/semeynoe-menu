@@ -1,7 +1,7 @@
 // Офлайн-режим «Семейного меню».
 // После правки файлов увеличьте номер версии, чтобы телефоны получили обновление.
 const VERSION = "menu-v1";
-const FILES = ["./", "./index.html", "./manifest.json", "./icons/icon-192.png", "./icons/icon-512.png", "./icons/apple-touch-icon.png"];
+const FILES = ["./", "./index.html", "./manifest.json", "./icon-192.png", "./icon-512.png", "./apple-touch-icon.png"];
 
 self.addEventListener("install", e => {
   e.waitUntil(caches.open(VERSION).then(c => c.addAll(FILES)).then(() => self.skipWaiting()));
