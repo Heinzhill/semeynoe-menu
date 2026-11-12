@@ -413,7 +413,9 @@ details.sub{background:linear-gradient(180deg,#faf8f2,#f5f2ea);border-radius:16p
 /* мастер */
 .wz-prog span{border-top-width:3px;border-radius:2px}
 .wz-prog span.on{border-color:var(--gold);color:var(--moss-deep)}
-.wz-foot{background:var(--paper);border-top:0;box-shadow:none}
+.wz-foot{background:var(--paper);border-top:0;box-shadow:none;position:relative}
+.wz-foot::before{content:"";position:absolute;left:0;right:0;bottom:100%;height:28px;background:linear-gradient(to bottom,rgba(243,240,232,0),var(--paper));pointer-events:none}
+.wz.still .wz-body>*,.wz.still .wz-body *{animation:none!important}
 .wz-foot.solo{justify-content:center}
 .wz-foot.solo #wzNext{margin:0 auto}
 .wz-body>*{animation:fadeUp .4s var(--ease) both}
@@ -2066,10 +2068,14 @@ function wzRender(){
       <ul class="wz-steps">${["Считаем нормы для каждого","Убираем блюда с аллергенами","Подбираем блюда под вашу технику","Рассчитываем порции и покупки"].map((x,i)=>`<li style="animation-delay:${i*0.45}s">${x}</li>`).join("")}</ul></div>`;
   }
   const prog = st>=1 && st<=5 ? `<div class="wz-prog">${WZ_STEPS.map((x,i)=>`<span class="${i<st?"on":""}">${x}</span>`).join("")}</div>` : "";
-  $("#wizard").innerHTML = `<div class="wz" role="dialog" aria-modal="true" aria-label="Настройка меню">
+  const same = wiz._last===st, oldBody=$("#wizard .wz-body"), sc=oldBody?oldBody.scrollTop:0;
+  const ae=document.activeElement, fk = ae && ae.closest && ae.closest("#wizard") ? [...ae.attributes].filter(x=>x.name.startsWith("data-")).map(x=>`[${x.name}="${x.value}"]`).join("") : "";
+  wiz._last=st;
+  $("#wizard").innerHTML = `<div class="wz${same?" still":""}" role="dialog" aria-modal="true" aria-label="Настройка меню">
     <div class="wz-top">${prog}${st<6&&!w.first?`<button class="wz-x" id="wzClose" aria-label="Закрыть">✕</button>`:""}${st===0&&w.first?`<button class="wz-skip" id="wzSkip">Пропустить</button>`:""}</div>
     <div class="wz-body">${body}</div>
     ${st<6?`<div class="wz-foot${st>0?"":" solo"}">${st>0?`<button class="btn ghost" id="wzBack">Назад</button>`:""}<button class="btn" id="wzNext" ${canNext?"":"disabled"}>${next}</button></div>`:""}</div>`;
+  if (same){ const nb=$("#wizard .wz-body"); if(nb) nb.scrollTop=sc; if(fk){ const f=$("#wizard "+fk); if(f) f.focus({preventScroll:true}); } }
   wzBind();
 }
 function wzBind(){
@@ -2079,7 +2085,7 @@ function wzBind(){
   on("wzClose",wzClose);
   on("wzSkip",()=>{ state.onboarded=true; save(); wzClose(); });
   document.querySelectorAll("#wizard [data-wf]").forEach(inp=>inp.onchange=()=>{ const p=w.fam[+inp.dataset.i], f=inp.dataset.wf;
-    p[f] = (f==="name"||f==="sex") ? inp.value : +inp.value; if (f==="age"&&personType(p)!=="adult") p.goal="keep"; if (f!=="name") wzRender(); });
+    const t0=personType(p); p[f] = (f==="name"||f==="sex") ? inp.value : +inp.value; if (f==="age"&&personType(p)!=="adult") p.goal="keep"; if (f==="age" && personType(p)!==t0) wzRender(); });
   document.querySelectorAll("#wizard [data-wf='name']").forEach(inp=>inp.oninput=()=>{ w.fam[+inp.dataset.i].name=inp.value; const b=$("#wzNext"); if(b) b.disabled=!w.fam.every(p=>String(p.name).trim()); });
   document.querySelectorAll("#wizard [data-wadd]").forEach(b=>b.onclick=()=>{ w.fam.push(wzPerson(b.dataset.wadd)); wzRender(); const l=document.querySelectorAll(".wz-card"); l[l.length-1].scrollIntoView({block:"center"}); });
   document.querySelectorAll("#wizard [data-wdel]").forEach(b=>b.onclick=()=>{ w.fam.splice(+b.dataset.wdel,1); w.who=0; wzRender(); });
