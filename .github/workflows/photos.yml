@@ -1,0 +1,125 @@
+name: photos
+on:
+  push:
+    paths: [".github/workflows/photos.yml"]
+  workflow_dispatch:
+permissions:
+  contents: write
+jobs:
+  get:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Download
+        run: |
+          mkdir -p photos
+          while read id url; do
+            curl -sSL --retry 3 -A "NashStolBot/1.0 (family menu)" -o "photos/$id.jpg" "$url" || echo "fail $id"
+            sleep 1
+          done <<'LIST'
+          b01 https://commons.wikimedia.org/wiki/Special:FilePath/Banana_blueberry_oatmeal.jpg?width=640
+          b02 https://commons.wikimedia.org/wiki/Special:FilePath/Syrniki_with_fruits.jpg?width=640
+          b03 https://commons.wikimedia.org/wiki/Special:FilePath/%D0%AF%D0%B8%D1%87%D0%BD%D0%B8%D1%86%D0%B0_%D1%81_%D0%BF%D0%BE%D0%BC%D0%B8%D0%B4%D0%BE%D1%80%D0%B0%D0%BC%D0%B8.jpg?width=640
+          b04 https://commons.wikimedia.org/wiki/Special:FilePath/%D0%93%D1%80%D0%B5%D1%87%D0%BD%D0%B5%D0%B2%D0%B0%D1%8F_%D0%BA%D0%B0%D1%88%D0%B0.jpg?width=640
+          b05 https://commons.wikimedia.org/wiki/Special:FilePath/10._cottage_cheese_with_blackberries_%26_cashews_%286902905454%29.jpg?width=640
+          b06 https://commons.wikimedia.org/wiki/Special:FilePath/Avocado_toast_with_eggs_%2828508171495%29.jpg?width=640
+          b07 https://commons.wikimedia.org/wiki/Special:FilePath/Millet_porridge.png?width=640
+          b08 https://commons.wikimedia.org/wiki/Special:FilePath/Granola%2C_yogurt%2C_fruit._%2816696981528%29.jpg?width=640
+          b09 https://commons.wikimedia.org/wiki/Special:FilePath/Two_Blintz_on_the_Plate.jpg?width=640
+          b10 https://commons.wikimedia.org/wiki/Special:FilePath/Shakshuka_%28Unsplash%29.jpg?width=640
+          b11 https://commons.wikimedia.org/wiki/Special:FilePath/Riisipuuro.jpg?width=640
+          b12 https://commons.wikimedia.org/wiki/Special:FilePath/Handmade_Chicken_Shawarma_Wrap_-_Lavash.jpg?width=640
+          b13 https://commons.wikimedia.org/wiki/Special:FilePath/Noodle_Kugel.jpg?width=640
+          l01 https://commons.wikimedia.org/wiki/Special:FilePath/Borscht_served.jpg?width=640
+          l02 https://commons.wikimedia.org/wiki/Special:FilePath/Chicken_noodle_soup_%28cropped%29.jpg?width=640
+          l03 https://commons.wikimedia.org/wiki/Special:FilePath/Soup_with_a_piece_of_lemon_on_the_side.jpg?width=640
+          l04 https://commons.wikimedia.org/wiki/Special:FilePath/Russian_Cuisine_IMG_4229.JPG?width=640
+          l05 https://commons.wikimedia.org/wiki/Special:FilePath/Bowl_of_Cream_of_Mushroom_Soup.JPG?width=640
+          l06 https://commons.wikimedia.org/wiki/Special:FilePath/Uha_013.jpg?width=640
+          l07 https://commons.wikimedia.org/wiki/Special:FilePath/K%C3%BCrbissuppe_mit_Kern%C3%B6l.JPG?width=640
+          l08 https://commons.wikimedia.org/wiki/Special:FilePath/Grechka_and_beef_1.jpg?width=640
+          l09 https://commons.wikimedia.org/wiki/Special:FilePath/Pilaf_with_chicken.jpg?width=640
+          l10 https://commons.wikimedia.org/wiki/Special:FilePath/Kotlety_mielone_z_ziemniakami_i_mizeri%C4%85_-_2024.04.14.jpg?width=640
+          l11 https://commons.wikimedia.org/wiki/Special:FilePath/%D0%9C%D0%B0%D0%BA%D0%B0%D1%80%D0%BE%D0%BD%D1%8B_%D0%BF%D0%BE-%D1%84%D0%BB%D0%BE%D1%82%D1%81%D0%BA%D0%B8.JPG?width=640
+          l12 https://commons.wikimedia.org/wiki/Special:FilePath/Liat_Portal_for_Foodie_Disorder_-_Meatballs_in_tomato_sauce.jpg?width=640
+          l13 https://commons.wikimedia.org/wiki/Special:FilePath/Spinach-Chickpea_Curry_%283117324894%29.jpg?width=640
+          l14 https://commons.wikimedia.org/wiki/Special:FilePath/Roasted_chicken_and_potatoes.JPG?width=640
+          l15 https://commons.wikimedia.org/wiki/Special:FilePath/Beef_stew_%2815707525894%29.jpg?width=640
+          d01 https://commons.wikimedia.org/wiki/Special:FilePath/2020-02-21_20_20_10_A_serving_of_salmon%2C_mashed_potatoes_and_broccoli_at_the_Olive_Garden_in_Fair_Lakes%2C_Fairfax_County%2C_Virginia.jpg?width=640
+          d03 https://commons.wikimedia.org/wiki/Special:FilePath/Salad_of_greens%2C_carrots%2C_tuna%2C_and_hard-boiled_eggs%2C_with_dressing_of_olive_oil%2C_vinegar%2C_salt%2C_and_black_pepper_-_Massachusetts.jpg?width=640
+          d04 https://commons.wikimedia.org/wiki/Special:FilePath/%D0%93%D1%80%D0%B5%D1%87%D1%8F%D0%BD%D0%B0_%D0%BA%D0%B0%D1%88%D0%B0_%D0%B7_%D0%B4%D1%83%D1%88%D0%B5%D0%BD%D0%B8%D0%BD%D0%BE%D1%8E2.jpg?width=640
+          d05 https://commons.wikimedia.org/wiki/Special:FilePath/Baked_cod_fillet.jpg?width=640
+          d06 https://commons.wikimedia.org/wiki/Special:FilePath/Golubzi5.jpg?width=640
+          d07 https://commons.wikimedia.org/wiki/Special:FilePath/Kapuska_with_veal.jpg?width=640
+          d08 https://commons.wikimedia.org/wiki/Special:FilePath/Chicken_Pasta_in_White_Sauce.jpg?width=640
+          d09 https://commons.wikimedia.org/wiki/Special:FilePath/Korean_Shrimp_Fried_Rice.jpg?width=640
+          d10 https://commons.wikimedia.org/wiki/Special:FilePath/Peppers_stuffed_with_minced_meat_with_tomato_sauce_in_Poznan.jpg?width=640
+          d11 https://commons.wikimedia.org/wiki/Special:FilePath/Liver_with_bacon_and_onions%2C_plus_mashed_potatoes_-_Boston%2C_MA.jpg?width=640
+          d12 https://commons.wikimedia.org/wiki/Special:FilePath/Kuru_fasulye_%28without_meat%29.jpg?width=640
+          d13 https://commons.wikimedia.org/wiki/Special:FilePath/Baked_Tofu_with_Broccoli_and_Rice.jpg?width=640
+          d14 https://commons.wikimedia.org/wiki/Special:FilePath/Zucchini_mit_K%C3%A4se_%C3%BCberbacken_Tanne_Harsdorf.jpg?width=640
+          d15 https://commons.wikimedia.org/wiki/Special:FilePath/Roast_shoulder_of_pork_and_root_vegetables_%2810295022073%29.jpg?width=640
+          s01 https://commons.wikimedia.org/wiki/Special:FilePath/Kefir_glass_london_feb_10_%28cropped%29.jpg?width=640
+          s02 https://commons.wikimedia.org/wiki/Special:FilePath/Blueberries%2C_bananas%2C_sour_cream_and_cottage_cheese.jpg?width=640
+          s03 https://commons.wikimedia.org/wiki/Special:FilePath/Yogurt_fruit_bowl.jpg?width=640
+          s05 https://commons.wikimedia.org/wiki/Special:FilePath/Sandwich_with_cucumber_and_cheese.jpg?width=640
+          s06 https://commons.wikimedia.org/wiki/Special:FilePath/Mixed-Platter-And-Dip.jpg?width=640
+          s07 https://commons.wikimedia.org/wiki/Special:FilePath/Elvis_Banana_and_Peanut_Butter_Sandwiches.jpg?width=640
+          s08 https://commons.wikimedia.org/wiki/Special:FilePath/Liat_Portal_for_Foodie_Disorder_-_Israeli_vegetable_plate_with_hard_boiled_egg_and_Tzfatit_cheese.jpg?width=640
+          s09 https://commons.wikimedia.org/wiki/Special:FilePath/Banana_Smoothie.jpg?width=640
+          s10 https://commons.wikimedia.org/wiki/Special:FilePath/Brat%C3%A4pfel_2.JPG?width=640
+          k01 https://commons.wikimedia.org/wiki/Special:FilePath/%D0%9A%D0%B0%D1%88%D0%B0_%D1%96%D0%B7_%D0%B7%D0%B5%D0%BB%D0%B5%D0%BD%D0%BE%D1%97_%D0%B3%D1%80%D0%B5%D1%87%D0%BA%D0%B8.jpg?width=640
+          k02 https://commons.wikimedia.org/wiki/Special:FilePath/Cooked_oatmeal_in_bowl_%28low_angle%29.jpg?width=640
+          k03 https://commons.wikimedia.org/wiki/Special:FilePath/Garbuzova_kasha_in_Krushynka.jpg?width=640
+          k04 https://commons.wikimedia.org/wiki/Special:FilePath/Omelette.JPG?width=640
+          k05 https://commons.wikimedia.org/wiki/Special:FilePath/Cottagecheese200px.jpg?width=640
+          k06 https://commons.wikimedia.org/wiki/Special:FilePath/Mush_for_the_baby._Peas%2C_broccoli_and_potatoes.jpg?width=640
+          k07 https://commons.wikimedia.org/wiki/Special:FilePath/Pumpkin_Cream_Soup.jpg?width=640
+          k08 https://commons.wikimedia.org/wiki/Special:FilePath/%D0%A1%D1%83%D0%BF_%D0%B7_%D1%84%D1%80%D0%B8%D0%BA%D0%B0%D0%B4%D0%B5%D0%BB%D1%8C%D0%BA%D0%B0%D0%BC%D0%B8_-_20260725_092230.jpg?width=640
+          k09 https://commons.wikimedia.org/wiki/Special:FilePath/Kyllingefrikadeller_og_broccolisalat_%287263102032%29.jpg?width=640
+          k10 https://commons.wikimedia.org/wiki/Special:FilePath/Pozharskaya_kotleta.jpg?width=640
+          k12 https://commons.wikimedia.org/wiki/Special:FilePath/Rabbit_Stew_It-Tokk_Victoria_Gozo.jpg?width=640
+          k14 https://commons.wikimedia.org/wiki/Special:FilePath/Pur%C3%A9ed_veggies.jpg?width=640
+          k16 https://commons.wikimedia.org/wiki/Special:FilePath/Brat%C3%A4pfel_1.JPG?width=640
+          k17 https://commons.wikimedia.org/wiki/Special:FilePath/Kefir_pouring.jpg?width=640
+          k18 https://commons.wikimedia.org/wiki/Special:FilePath/Storebought_baby_food_-_fruit_and_vegetable_puree_in_glass_and_pouch.jpg?width=640
+          k20 https://commons.wikimedia.org/wiki/Special:FilePath/Starting_solids_-_homemade_baby_food_in_a_bowl.jpg?width=640
+          b14 https://commons.wikimedia.org/wiki/Special:FilePath/Toastbrot-mit-Quark-und-Schmootsch.jpg?width=640
+          b15 https://commons.wikimedia.org/wiki/Special:FilePath/Liat_Portal_for_Foodie_Disorder_-_Scrambled_Eggs_on_Whole_Grain_Toast_with_Yellow_Tomatoes.jpg?width=640
+          b17 https://commons.wikimedia.org/wiki/Special:FilePath/Protein_overnight_oats.jpg?width=640
+          l17 https://commons.wikimedia.org/wiki/Special:FilePath/Liat_Portal_for_Foodie_Disorder_-_Jewish_Chicken_Soup_with_Potatoes_and_Egg_Noodles.jpg?width=640
+          l18 https://commons.wikimedia.org/wiki/Special:FilePath/Bean_soup_with_tomatoes_and_red_peppers.jpeg?width=640
+          l19 https://commons.wikimedia.org/wiki/Special:FilePath/Kremostsuppe_%28cream_cheese_soup%29.jpg?width=640
+          l20 https://commons.wikimedia.org/wiki/Special:FilePath/Kefir-okroshka.jpg?width=640
+          l21 https://commons.wikimedia.org/wiki/Special:FilePath/Stagg_Chili_and_Peas_%284720458788%29.jpg?width=640
+          d16 https://commons.wikimedia.org/wiki/Special:FilePath/Pasta_with_tomato_sauce%2C_capers_and_tuna_%2850540741211%29.jpg?width=640
+          d17 https://commons.wikimedia.org/wiki/Special:FilePath/Nohut_yahni_and_bulgur.jpg?width=640
+          d19 https://commons.wikimedia.org/wiki/Special:FilePath/Chicken_Quesadilla_dish_at_Latin_Bistro_restaurant_Summit_NJ.JPG?width=640
+          d20 https://commons.wikimedia.org/wiki/Special:FilePath/Warm_Black_Bean_Salad_with_Kale_and_Tomatoes.jpg?width=640
+          d21 https://commons.wikimedia.org/wiki/Special:FilePath/Healthy_Chicken_and_Vegetables_Stir_Fry.jpg?width=640
+          d22 https://commons.wikimedia.org/wiki/Special:FilePath/Fried_Fish_with_Vegetables_Meal.jpg?width=640
+          d23 https://commons.wikimedia.org/wiki/Special:FilePath/Omelette_de_verduras.jpg?width=640
+          s11 https://commons.wikimedia.org/wiki/Special:FilePath/Bowl_of_tangerines.jpg?width=640
+          x01 https://commons.wikimedia.org/wiki/Special:FilePath/Tomato_cucumber_salad.jpg?width=640
+          x02 https://commons.wikimedia.org/wiki/Special:FilePath/CabbageSalad.jpg?width=640
+          x03 https://commons.wikimedia.org/wiki/Special:FilePath/Vinaigrette_salad.jpg?width=640
+          x04 https://commons.wikimedia.org/wiki/Special:FilePath/%D0%A1%D0%B2%D0%B5%D0%BA%D0%BE%D0%BB%D1%8C%D0%BD%D1%8B%D0%B9_%D1%81%D0%B0%D0%BB%D0%B0%D1%82.jpg?width=640
+          x05 https://commons.wikimedia.org/wiki/Special:FilePath/Cucumber%2C_Radishes%2C_Mint_%26_Feta_Salad_%288395667977%29.jpg?width=640
+          x06 https://commons.wikimedia.org/wiki/Special:FilePath/Salad_with_bryndza_06.jpg?width=640
+          x07 https://commons.wikimedia.org/wiki/Special:FilePath/French_grated_carrot_salad.jpg?width=640
+          x08 https://commons.wikimedia.org/wiki/Special:FilePath/Kvaschennaja-kapusta.jpg?width=640
+          x09 https://commons.wikimedia.org/wiki/Special:FilePath/Sliced_cucumbers_and_tomatoes.JPG?width=640
+          x10 https://commons.wikimedia.org/wiki/Special:FilePath/Bean_salad.jpg?width=640
+          x11 https://commons.wikimedia.org/wiki/Special:FilePath/Apples_and_Bananas.JPG?width=640
+          x12 https://commons.wikimedia.org/wiki/Special:FilePath/Bread_with_Butterk%C3%A4se.jpg?width=640
+          x13 https://commons.wikimedia.org/wiki/Special:FilePath/Mandarin_Oranges_%28Citrus_Reticulata%29.jpg?width=640
+          x14 https://commons.wikimedia.org/wiki/Special:FilePath/Kefir_in_a_glass.JPG?width=640
+          LIST
+          ls -la photos | head
+      - name: Commit
+        run: |
+          git config user.name "photos-bot"
+          git config user.email "photos-bot@users.noreply.github.com"
+          git add photos
+          git commit -m "Фото блюд" || echo nothing
+          git push
