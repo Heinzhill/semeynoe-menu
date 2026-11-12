@@ -413,7 +413,9 @@ details.sub{background:linear-gradient(180deg,#faf8f2,#f5f2ea);border-radius:16p
 /* мастер */
 .wz-prog span{border-top-width:3px;border-radius:2px}
 .wz-prog span.on{border-color:var(--gold);color:var(--moss-deep)}
-.wz-foot{background:rgba(255,253,248,.82);backdrop-filter:blur(18px);-webkit-backdrop-filter:blur(18px);border-top:1px solid var(--line)}
+.wz-foot{background:var(--paper);border-top:0;box-shadow:none}
+.wz-foot.solo{justify-content:center}
+.wz-foot.solo #wzNext{margin:0 auto}
 .wz-body>*{animation:fadeUp .4s var(--ease) both}
 .wz-spin{border-color:#e8ede0;border-top-color:var(--gold)}
 @media (max-width:860px){
@@ -2067,7 +2069,7 @@ function wzRender(){
   $("#wizard").innerHTML = `<div class="wz" role="dialog" aria-modal="true" aria-label="Настройка меню">
     <div class="wz-top">${prog}${st<6&&!w.first?`<button class="wz-x" id="wzClose" aria-label="Закрыть">✕</button>`:""}${st===0&&w.first?`<button class="wz-skip" id="wzSkip">Пропустить</button>`:""}</div>
     <div class="wz-body">${body}</div>
-    ${st<6?`<div class="wz-foot">${st>0?`<button class="btn ghost" id="wzBack">Назад</button>`:"<span></span>"}<button class="btn" id="wzNext" ${canNext?"":"disabled"}>${next}</button></div>`:""}</div>`;
+    ${st<6?`<div class="wz-foot${st>0?"":" solo"}">${st>0?`<button class="btn ghost" id="wzBack">Назад</button>`:""}<button class="btn" id="wzNext" ${canNext?"":"disabled"}>${next}</button></div>`:""}</div>`;
   wzBind();
 }
 function wzBind(){
