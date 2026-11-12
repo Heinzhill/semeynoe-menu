@@ -1,6 +1,6 @@
-// Офлайн-режим «Семейного меню».
+// Офлайн-режим «Нашего стола».
 // После правки файлов увеличьте номер версии, чтобы телефоны получили обновление.
-const VERSION = "menu-v1";
+const VERSION = "menu-v4";
 const FILES = ["./", "./index.html", "./manifest.json", "./icon-192.png", "./icon-512.png", "./apple-touch-icon.png"];
 
 self.addEventListener("install", e => {
