@@ -479,6 +479,11 @@ ul.plate{margin:0;padding-left:18px;display:flex;flex-direction:column;gap:6px}
 .pill.x.armed,.btn.armed{background:var(--bad);color:#fff;border-color:var(--bad)}
 .fcard.ro .fbody{opacity:.75}
 
+.btn.regen{display:inline-flex;align-items:center;gap:7px}
+.btn.regen svg{width:17px;height:17px;fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round;stroke-linejoin:round;transition:transform .5s var(--ease)}
+.btn.regen:hover svg{transform:rotate(180deg)}
+@media (max-width:560px){.wk-acts{flex-wrap:nowrap!important;gap:6px!important}.wk-acts .btn,.wk-acts .segb,.wk-acts button{padding-left:11px;padding-right:11px;font-size:.86rem;white-space:nowrap}.btn.regen{gap:5px}}
+@media (max-width:380px){.btn.regen .rw{display:none}}
 /* ---- Компьютер: единая колонка, мастер в карточке ---- */
 @media (min-width:861px){
   .top,nav{padding-left:calc(max(0px,(100% - 1280px)/2) + max(16px,4vw));padding-right:calc(max(0px,(100% - 1280px)/2) + max(16px,4vw))}
@@ -1626,7 +1631,7 @@ function renderWeek(){
   let h = `<section class="wk-head"><div>
       <h2><span class="t-desk">Меню на ${weekTitle(state.view)}</span><span class="t-mob">${showAll?"Вся неделя":cap(DAYS[mobileDay].toLowerCase())+", "+dLabel}</span></h2>${mobileDay===todayIdx&&!showAll?`<span class="todayb t-mob">Сегодня</span>`:""}
       <p class="muted">Расход продуктов за неделю ≈ <b>${rub(cost)}</b> ${pricesNote()}</p></div>
-    <div class="wk-acts">${weekSwitch()}<button class="btn" id="regen">Другое меню</button>
+    <div class="wk-acts">${weekSwitch()}<button class="btn ghost regen" id="regen" title="Подобрать другие блюда на эту неделю"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20 11a8 8 0 1 0-2.3 5.7"/><path d="M20 5v6h-6"/></svg>Пересобрать<span class="rw"> меню</span></button>
       <details class="more"><summary class="pill" aria-label="Ещё действия">Ещё</summary><div class="menu">
         ${state.weeks[nextKey]?"":`<button id="mkNext">Собрать следующую неделю</button>`}<button id="copyMenu">Скопировать меню</button><button id="goShop">Список покупок</button><button id="startOver" class="mi-reset">Начать заново</button></div></details></div></section>`;
   if (banner && state.view===nextKey) h += `<div class="banner">${esc(banner)}</div>`;
