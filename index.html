@@ -478,6 +478,28 @@ ul.plate{margin:0;padding-left:18px;display:flex;flex-direction:column;gap:6px}
 .aact{display:flex;flex-wrap:wrap;gap:6px}.apin{display:flex;gap:6px;width:100%}.apin input{flex:1;border:1px solid var(--line);border-radius:12px;padding:9px 12px;font:inherit}
 .pill.x.armed,.btn.armed{background:var(--bad);color:#fff;border-color:var(--bad)}
 .fcard.ro .fbody{opacity:.75}
+
+/* ---- Компьютер: единая колонка, мастер в карточке ---- */
+@media (min-width:861px){
+  .top,nav{padding-left:calc(max(0px,(100% - 1280px)/2) + max(16px,4vw));padding-right:calc(max(0px,(100% - 1280px)/2) + max(16px,4vw))}
+  .top{padding-top:22px;padding-bottom:12px}
+  nav{gap:6px}
+  .fam>.wz-add,.fam>.acts{grid-column:1/-1}
+  .fam>.wz-add{align-items:center}
+  .fam>.acts{justify-content:flex-start;margin-top:-4px}
+  .mimg .big{max-height:300px}
+  .babyline{align-items:stretch}
+  .babyline>.bc,.babyline>.fm{justify-content:flex-start}
+  .babyline>.bc>:last-child,.babyline>.fm>:last-child{flex:1}
+  .babyline .formula{display:flex;align-items:center;justify-content:center}
+  #wizard{align-items:center;padding:32px;background:radial-gradient(1200px 700px at 15% 0%,#f7f4ea 0,var(--paper) 60%)}
+  .wz{height:auto;max-height:min(860px,100%);max-width:720px;background:var(--card);border-radius:28px;box-shadow:0 30px 80px rgba(31,42,26,.12),0 2px 8px rgba(31,42,26,.05);overflow:hidden;padding-top:0}
+  .wz-top{padding-top:18px}
+  .wz-body{padding:14px 40px 28px}
+  .wz-foot{background:var(--card);padding:16px 40px 24px}
+  .wz-foot::before{background:linear-gradient(to bottom,rgba(255,253,248,0),var(--card))}
+  .wz-foot.solo{padding-top:8px}
+}
 </style>
 </head>
 <body>
